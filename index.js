@@ -2,63 +2,37 @@
 const fs = require("fs");
 const path = require("path");
 
+// utils
+const createFile = require("./utils/createFile");
+
+// templates
+const testTemplate = require("./templates/component-test");
+const componentTemplate = require("./templates/component");
+
+// get file name and location from command line
 const [fileName, fileLocation] = process.argv.slice(2);
 
 if (!(fileName && fileLocation)) {
   console.error("Please provide a file name and location.");
   process.exit(1);
 }
+
 const dir = path.join(__dirname, fileLocation);
 
-const componentFile = path.join(__dirname,fileLocation, `${fileName}.js`);
-const testFile = path.join(__dirname, fileLocation, `${fileName}.test.js`);
-
-const componentTemplate = `import React from 'react';
-
-const ${fileName} = () => {
-  return (
-    <div>
-      ${fileName} component
-    </div>
-  );
-};
-
-export default ${fileName};
-`;
-
-const testTemplate = `import React from 'react';
-import { render } from '@testing-library/react';
-import ${fileName} from './${fileName}';
-
-describe('${fileName}', () => {
-  it('renders correctly', () => {
-    const { getByText } = render(<${fileName} />);
-    expect(getByText('${fileName} component')).toBeInTheDocument();
-  });
-});
-`;
-
-
+// create directory if it doesn't exist
 if (!fs.existsSync(fileLocation)) {
   console.log(__dirname);
   console.log(dir);
   fs.mkdirSync(dir, { recursive: true });
 }
 
-fs.writeFile(componentFile, componentTemplate, err => {
-  if (err) {
-    console.error(err);
-    process.exit(1);
-  }
+// create component file
+const componentFile = path.join(__dirname, fileLocation, `${fileName}.jsx`);
+createFile(componentFile, componentTemplate(fileName));
 
-  console.log(`${componentFile} created.`);
-});
+// create test file
+const testFile = path.join(__dirname, fileLocation, `${fileName}.test.jsx`);
+createFile(testFile, testTemplate(fileName));
 
-fs.writeFile(testFile, testTemplate, err => {
-  if (err) {
-    console.error(err);
-    process.exit(1);
-  }
+// create Module
 
-  console.log(`${testFile} created.`);
-});
