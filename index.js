@@ -1,43 +1,15 @@
 #!/usr/bin/env node
 const { Command } = require("commander");
-// const fs = require("fs");
-// const path = require("path");
+// const chalk = require("chalk");
+const path = require("path");
 
 const program = new Command();
+const log = console.log;
 
-// // utils
-// const createFile = require("./utils/createFile");
+// utils
+const createFile = require("./utils/createFile");
+const createFolder = require("./utils/createFolder");
 
-// // templates
-// const testTemplate = require("./templates/component-test");
-// const componentTemplate = require("./templates/component");
-
-// // get file name and location from command line
-// const [fileName, fileLocation] = process.argv.slice(2);
-
-// if (!(fileName && fileLocation)) {
-//   console.error("Please provide a file name and location.");
-//   process.exit(1);
-// }
-
-// const dir = path.join(__dirname, fileLocation);
-
-// // create directory if it doesn't exist
-// if (!fs.existsSync(fileLocation)) {
-//   console.log(__dirname);
-//   console.log(dir);
-//   fs.mkdirSync(dir, { recursive: true });
-// }
-
-// // create component file
-// const componentFile = path.join(__dirname, fileLocation, `${fileName}.jsx`);
-// createFile(componentFile, componentTemplate(fileName));
-
-// // create test file
-// const testFile = path.join(__dirname, fileLocation, `${fileName}.test.jsx`);
-// createFile(testFile, testTemplate(fileName));
-
-// create Module
 program
   .name("react-cli")
   .version("0.0.1")
@@ -51,6 +23,7 @@ program
   // .option("-f, --folder", "Generate a folder")
   .option("-c, --component <name>", "Generate a component ")
   .option("-m, --module", "Generate a model")
+  .option("-l, --location <location>", "Set location")
   // .option("-t, --test", "Generate a test")
   // .option("-r, --route", "Generate a route")
   // .option("-p, --page", "Generate a page")
@@ -65,25 +38,39 @@ program
   // .argument("name", "Name of the folder to generate")
   // .action((name, destination, options) => {
   .action((options) => {
-    // console.log(`Generate ${name} in ${destination.component}`);
+    // config
+    const defaultLocation = "./demo";
+    const location = options.location || defaultLocation;
+
     if (options.component) {
-      console.log("component")
+      
+      const fileName = options.component;
+      // const dir = path.join(__dirname, location);
+
+      // create directory if it doesn't exist
+      createFolder(location, 'components');
+      
+      console.log(`creating ${fileName} at ${location}/components`)
+
+      // create component file      
+      const componentTemplate = require("./templates/component");
+      const componentFile = path.join(__dirname, location, 'components', `${fileName}.jsx`);
+      createFile(componentFile, componentTemplate(fileName));
+
+      // create test file
+      const testTemplate = require("./templates/component-test");
+      const testFile = path.join(__dirname, location, 'components', `${fileName}.test.jsx`);
+      createFile(testFile, testTemplate(fileName));
+      console.log(`${fileName} successfully created at ${location}`);
+      // console.log(chalk.green(`${fileName} successfully created at ${location}`));
     }
+
     if (options.module) {
       console.log("module")
+      createFolder(location, 'components');
+      createFolder(location, 'components');
     }
-    
-    switch (options) {
-      case options.component:
-        console.log("component")
-        break;
-      case options.module:
-        console.log("module")
-        break;
-      default:
-        console.log("default")
-        break;
-    }
+
   });
 
   program.parse();

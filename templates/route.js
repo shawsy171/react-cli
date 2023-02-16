@@ -8,11 +8,11 @@ const routeTemplate = (component, pathName) => {
   // }: {
   //   params: { [key: string]: string };
   // }): Promise<unknown> {
+    engagement: {
   //   return queryClient.fetchQuery(['tasks', params.id], () => getTasks(params.id));
   // }
   
   export default {
-    engagement: {
       path: '/${pathName}',
       displayName: '${component}',
       element: <${component} />,

@@ -1,7 +1,16 @@
 # usage
 
-node index.js <location> <command> <fileName>
+default files will be created in demo files
+
+## create component
 
 ```
-node index.js /Users/pdamshaw/Dev/pentest-manager-project/PentestManager/src/PentestManagerFrontEnd create
+
+node index.js generate -c <component-file-name> -l <location>
+```
+
+## create module
+
+```
+node index.js generate -m <module-name> -l <location>
 ```
