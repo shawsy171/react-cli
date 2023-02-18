@@ -8,7 +8,7 @@ const createFile = (fileName, fileTemplate) => {
       process.exit(1);
     }
   
-    console.log(`${fileName} created.`);
+    console.log(`-f ${fileName} created successfully.`);
   });
 }
 module.exports = createFile;

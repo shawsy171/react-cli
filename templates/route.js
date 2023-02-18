@@ -1,25 +1,14 @@
 const routeTemplate = (component, pathName) => {
   return `import { ${component} } from '@pages/${component}';
-  // import queryClient from '@common/clients/queryClient';
-  // import { getTasks } from '../services/getTasks';
-  
-  // export async function ${component.toLowercase()}TasksLoader({
-  //   params,
-  // }: {
-  //   params: { [key: string]: string };
-  // }): Promise<unknown> {
-    engagement: {
-  //   return queryClient.fetchQuery(['tasks', params.id], () => getTasks(params.id));
-  // }
-  
-  export default {
-      path: '/${pathName}',
-      displayName: '${component}',
-      element: <${component} />,
-      // loader: ${component.toLowercase()}TasksLoader,
-    },
-  };
-  `;
+
+export default {
+  ${pathName}: {
+    path: '/${pathName}',
+    displayName: '${component}',
+    element: <${component} />,
+  } 
+}
+`;
 }
 
 module.exports = routeTemplate;

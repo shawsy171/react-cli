@@ -8,7 +8,7 @@ const path = require("path");
  */
 const createFolder = (fileLocation, folder = "") => {
   const dir = path.join(process.cwd(), fileLocation, folder);
-  console.log(process.cwd())
+  
   if (!fs.existsSync(dir)) {
     console.log(dir)
 

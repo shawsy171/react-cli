@@ -1,11 +1,11 @@
-import capitalize from "../utils/capitalize"
-
+const capitalize = require("../utils/capitalize");
 const pageTemplate = (fileName) => {
   const capFileName = capitalize(fileName);
   
   return `
 import { Button, ContentLayout, Header } from '@amzn/awsui-components-react';
 import { useNavigate } from 'react-router-dom';
+
 export const ${capFileName} = () => {
   const navigate = useNavigate();
   return (
@@ -20,7 +20,7 @@ export const ${capFileName} = () => {
               variant="primary"
               onClick={() => navigate('/')}
             >
-              Create Engagement
+            Navigation button
             </Button>
           }
         >
@@ -28,7 +28,9 @@ export const ${capFileName} = () => {
         </Header>
       }
     >
-      ${capFileName} content
+      <Container >
+        ${capFileName} content
+      </Container>
     </ContentLayout>
   );
 };`}
