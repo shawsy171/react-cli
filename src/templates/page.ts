@@ -1,5 +1,5 @@
-const capitalize = require("../utils/capitalize");
-const pageTemplate = (fileName) => {
+import capitalize from "../utils/capitalize";
+const pageTemplate = (fileName: string) => {
   const capFileName = capitalize(fileName);
   
   return `

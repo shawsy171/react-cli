@@ -1,6 +1,6 @@
-const capitalize = require("../utils/capitalize");
+import capitalize from "../utils/capitalize";
 
-const testTemplate = (fileName) => {
+const testTemplate = (fileName: string) => {
 
  const capFileName = capitalize(fileName);
 
@@ -16,4 +16,4 @@ describe('${capFileName}', () => {
 });
 `};
 
-module.exports = testTemplate;
+export default testTemplate;
