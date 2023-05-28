@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import chalk from 'chalk';
+
 /**
  * Create a file with the given template
  * @param fileName the file you want to create

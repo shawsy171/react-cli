@@ -3,7 +3,7 @@ import createFile from "../utils/createFile";
 import componentTemplate from "../templates/component";
 import testTemplate from "../templates/component-test";
 import path from "path";
-
+import {PENTEST_MANAGER_LOCATION} from "../constants";
 class CreateComponent {
   fileName: string;
   dir: string;
@@ -13,14 +13,15 @@ class CreateComponent {
    * @param fileName name of the file to be created
    * @param location place where the file will be created
   */
- constructor(fileName = "", location = "./demo") {
+ constructor(fileName = "", location = "/demo") {
    this.fileName = fileName;
    this.dir = process.cwd();
-   this.location = path.join(this.dir, location, "components");
+  //  this.location = path.join(this.dir, PENTEST_MANAGER_LOCATION + location, "components");
+   this.location = path.join(PENTEST_MANAGER_LOCATION + location, "components");
   }
   
   folder() {
-    createFolder("demo", "components");
+    createFolder(this.location, "components");
   }
   
   file() {
