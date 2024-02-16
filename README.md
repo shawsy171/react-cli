@@ -19,20 +19,22 @@ rtc generate -c happy
 ## Create module
 When creating a module the module name and page name can be the same but the component (`-c`) in the page  must have a different name
 
-e.g.
-```
-ts-node src/index.ts generate -m findings -p findings -c findingsComponent     
-```
-
-```
+```bash
 ts-node src/index.ts generate -m <module-name> -l <location> -p <page-name> -c <component-name>
 ```
+
+e.g.
+```bash
+ts-node src/index.ts generate -m findings -p findings -c findingsComponent   
+```
+
 Or
 
 The module will require a page name `-p <page-name>` use camalCase for page names
 ```
-npm run module generate -- -m <module-name> -l <location> -p <paga-name>
+npm run module generate -- -m <module-name> -l <location> -p <page-name>
 ```
+## info
 
 this got `rtc` working as a command
 ```

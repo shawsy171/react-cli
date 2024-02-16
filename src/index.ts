@@ -5,6 +5,7 @@ import chalk from "chalk";
 import CreateComponent from "./options/component";
 import CreateModule from "./options/module";
 import CreatePage from "./options/page";
+import CreateService from "./options/service";
 
 const program = new Command();
 const log = console.log;
@@ -15,7 +16,7 @@ program
   .description("Create React Application project files and folders")
 
 program
-  .command("generate ")
+  .command("generate")
   .description("Generate a React folders and files")
   //   // .argument("<name>", "Name of the folder to generate") // <destination>
   //   // .option("-g, --generate", "Generate a file or folder <name>")
@@ -101,7 +102,6 @@ program
   .description("Generate a Page")
   .option("-c, --component <name>", "Generate a component ")
   .option("-m, --module <module>", "Generate a model")
-  .option("-p, --page <pageName>", "Generate a page")
   .action((options) => {
     log(chalk.blue("----------------------"));
     log(chalk.blue("Command: page"));
@@ -123,6 +123,41 @@ program
         const create = new CreatePage(options.page, options.module);
         create.init();
       }
+      return;
+  });
+
+  program
+  .command("service")
+  .description("Generate Services")
+  .argument("<moduleName>", "Name of the prefix for each service")
+  .argument("<fileName>", "Name of the file to generate")
+  .action((moduleName, fileName, options) => {
+    log(chalk.blue("----------------------"));
+    log(chalk.blue("Command: Service"));
+    log(chalk.blue("----------------------"));
+    log()
+    log("not yet implemented")
+    log(program.args);
+    log(moduleName, fileName, options)
+
+    const service = new CreateService(moduleName, fileName);
+    service.createServiceFile();
+
+    // // config
+    // const DEFAULT_LOCATION = "";
+    // const location = options.location || DEFAULT_LOCATION;
+
+    //   log(chalk.blue("page: ", options.page));
+
+    //   if(!options.page) {
+    //     log(chalk.red("Please provide a page name"));
+    //   } else if (!options.module) {
+    //     log(chalk.red("Please provide a module name"));
+    //   }
+    //   else {
+    //     const create = new CreatePage(options.page, options.module);
+    //     create.init();
+    //   }
       return;
   });
 

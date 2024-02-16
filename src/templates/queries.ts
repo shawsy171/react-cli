@@ -3,7 +3,7 @@ import capitalize from "../utils/capitalize";
 const queriesTemplate = (moduleName: string) => {
   const capModuleName = capitalize(moduleName);
   return `import queryClient from '@common/clients/queryClient';
-  import { get${moduleName} } from '@/modules/${moduleName}/services/${moduleName}Service';
+  import { get${capModuleName}, get${capModuleName}ByEngagement } from '@/modules/${moduleName}/services/${moduleName}Service';
   import { useMutation, useQuery } from '@tanstack/react-query';
   import { AWSError } from '@common/api/errors';
  
@@ -11,11 +11,11 @@ const queriesTemplate = (moduleName: string) => {
   export const useGet${capModuleName}byTaskId = (taskId: string) =>
     useQuery({
       queryKey: ['${moduleName}', taskId],
-      queryFn: () => get${moduleName}(taskId),
+      queryFn: () => get${capModuleName}(taskId),
     });
   
   // GET ONE
-  export const useGetAll${capModuleName}t = (engagementId: string) =>
+  export const useGetAll${capModuleName} = (engagementId: string) =>
     useQuery({
       queryKey: ['tasks', engagementId],
       queryFn: async () => {
