@@ -6,26 +6,26 @@ const queriesTemplate = (moduleName: string) => {
   import { get${capModuleName}, get${capModuleName}ByEngagement } from '@/modules/${moduleName}/services/${moduleName}Service';
   import { useMutation, useQuery } from '@tanstack/react-query';
   import { AWSError } from '@common/api/errors';
- 
+
   // GET ALL
   export const useGet${capModuleName}byTaskId = (taskId: string) =>
     useQuery({
       queryKey: ['${moduleName}', taskId],
       queryFn: () => get${capModuleName}(taskId),
     });
-  
+
   // GET ONE
   export const useGetAll${capModuleName} = (engagementId: string) =>
     useQuery({
       queryKey: ['tasks', engagementId],
       queryFn: async () => {
         const ${moduleName} = await get${capModuleName}ByEngagement(engagementId)
-  
+
         // AWSError
         if (${moduleName} && 'code' in ${moduleName}) {
           throw new Error(\`\${${moduleName}.code} \${${moduleName}.message}\`);
         }
-  
+
         // standard Error
         if (${moduleName} instanceof Error) {
           throw new Error(${moduleName}.message);
@@ -33,7 +33,7 @@ const queriesTemplate = (moduleName: string) => {
         return ${moduleName};
       },
     });
-  
+
   // PUT
   export const useUpdate${moduleName} = (taskId: string, engagementId: string) => {
     return useMutation({
@@ -48,13 +48,13 @@ const queriesTemplate = (moduleName: string) => {
         if (error instanceof AWSError) {
           throw new AWSError(error.message, error);
         }
-  
+
         if (error instanceof Error) {
           throw new Error(error.message);
         }
       },
     });
-      
+
   };
 
   // POST
@@ -75,13 +75,13 @@ const queriesTemplate = (moduleName: string) => {
         if (error instanceof AWSError) {
           throw new AWSError(error.code +' $%$ '+ error.message, error);
         }
-  
+
         if (error instanceof Error) {
           throw new Error(error.message);
         }
       },
     });
-      
+
     // DELETE
     export const useDelete${moduleName} = ({ parentTaskId, engagementId }: DeleteTask) => {
       return useMutation({
@@ -100,14 +100,14 @@ const queriesTemplate = (moduleName: string) => {
           if (error instanceof AWSError) {
             throw new AWSError(error.code +' $%$ '+ error.message, error);
           }
-    
+
           if (error instanceof Error) {
             throw new Error(error.message);
           }
         },
       });
-  
+  }}
 `;
-}
+};
 
 export default queriesTemplate;

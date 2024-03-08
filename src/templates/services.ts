@@ -100,7 +100,6 @@ export const updateTask = async ({
 };
 
 `;
-}
+};
 
 export default servicesTemplate;
-

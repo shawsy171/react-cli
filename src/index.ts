@@ -13,7 +13,7 @@ const log = console.log;
 program
   .name("react-cli")
   .version("0.0.1")
-  .description("Create React Application project files and folders")
+  .description("Create React Application project files and folders");
 
 program
   .command("generate")
@@ -47,22 +47,27 @@ program
     const DEFAULT_LOCATION = "";
     const location = options.location || DEFAULT_LOCATION;
 
-    
     // Module
     if (options.module) {
       log(chalk.blue("Module: ", options.module));
-      log()
+      log();
       if (!options.page) {
         log(chalk.red("Please provide a page name"));
-      } if (!options.component) {
+      }
+      if (!options.component) {
         log(chalk.red("Please provide a component name"));
       } else {
-        const create = new CreateModule(options.module, options.page, location, options.component);
+        const create = new CreateModule(
+          options.module,
+          options.page,
+          location,
+          options.component,
+        );
         create.module();
       }
       return;
 
-    // Component
+      // Component
     } else if (options.component) {
       log(chalk.blue("----------------------"));
       log(chalk.blue("Component: ", options.component));
@@ -73,28 +78,29 @@ program
       create.file();
       create.testFile();
       return;
-    
-    // Form
+
+      // Form
     } else if (options.form) {
       log(chalk.blue("form: ", options.form));
-      log()
+      log();
       return;
 
-    // Page
+      // Page
     } else if (options.page) {
-
       log(chalk.blue("page: ", options.page));
-      log()
+      log();
       if (!options.module) {
         log(chalk.red("Please provide a module name"));
-      }
-      else {
-        const create = new CreatePage(options.page, options.module);
+      } else {
+        const create = new CreatePage(
+          options.page,
+          options.module,
+          options.component,
+        );
         create.init();
       }
       return;
     }
-
   });
 
 program
@@ -106,27 +112,30 @@ program
     log(chalk.blue("----------------------"));
     log(chalk.blue("Command: page"));
     log(chalk.blue("----------------------"));
-    log()
-    console.log(program.args); 
+    log();
+    console.log(program.args);
     // config
     const DEFAULT_LOCATION = "";
     const location = options.location || DEFAULT_LOCATION;
 
-      log(chalk.blue("page: ", options.page));
+    log(chalk.blue("page: ", options.page));
 
-      if(!options.page) {
-        log(chalk.red("Please provide a page name"));
-      } else if (!options.module) {
-        log(chalk.red("Please provide a module name"));
-      }
-      else {
-        const create = new CreatePage(options.page, options.module);
-        create.init();
-      }
-      return;
+    if (!options.page) {
+      log(chalk.red("Please provide a page name"));
+    } else if (!options.module) {
+      log(chalk.red("Please provide a module name"));
+    } else {
+      const create = new CreatePage(
+        options.page,
+        options.module,
+        options.component,
+      );
+      create.init();
+    }
+    return;
   });
 
-  program
+program
   .command("service")
   .description("Generate Services")
   .argument("<moduleName>", "Name of the prefix for each service")
@@ -135,10 +144,10 @@ program
     log(chalk.blue("----------------------"));
     log(chalk.blue("Command: Service"));
     log(chalk.blue("----------------------"));
-    log()
-    log("not yet implemented")
+    log();
+    log("not yet implemented");
     log(program.args);
-    log(moduleName, fileName, options)
+    log(moduleName, fileName, options);
 
     const service = new CreateService(moduleName, fileName);
     service.createServiceFile();
@@ -158,11 +167,14 @@ program
     //     const create = new CreatePage(options.page, options.module);
     //     create.init();
     //   }
-      return;
+    return;
   });
 
-program.addHelpText('after', `
+program.addHelpText(
+  "after",
+  `
 
 Example call:
-  $ custom-help --help`);
+  $ custom-help --help`,
+);
 program.parse();

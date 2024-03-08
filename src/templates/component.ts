@@ -1,18 +1,17 @@
 import capitalize from "../utils/capitalize";
 
-const componentTemplate = (fileName: string) => {
-  const capFileName = capitalize(fileName);
+const componentTemplate = (componentName: string) => {
   return `import React from 'react';
 
-const ${capFileName} = () => {
+const ${componentName} = () => {
   return (
     <div>
-      ${capFileName} component
+      ${componentName} component
     </div>
   );
 };
 
-export default ${capFileName};
+export default ${componentName};
 `;
 };
 

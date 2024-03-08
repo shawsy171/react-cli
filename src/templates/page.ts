@@ -1,12 +1,18 @@
 import capitalize from "../utils/capitalize";
 
-const pageTemplate = (pageName: string, moduleName: string) => { // it this will require module name
+const pageTemplate = (
+  pageName: string,
+  moduleName: string,
+  componentName: string,
+) => {
+  // it this will require module name
   const capPageName = capitalize(pageName);
 
   return `
 import { Button, ContentLayout, Header, Container } from '@amzn/awsui-components-react';
 import { useNavigate } from 'react-router-dom';
 import ${pageName}Routes from '@modules/${moduleName}/routes/${pageName}'
+import ${componentName} from '@/modules/${moduleName}/components/${componentName}';
 
 const ${capPageName} = () => {
 
@@ -38,13 +44,14 @@ const ${capPageName} = () => {
       }
     >
       <Container >
-        ${capPageName} content
+        <${componentName} />
       </Container>
     </ContentLayout>
   );
 };
 
 export default ${capPageName};
-`}
+`;
+};
 
 export default pageTemplate;

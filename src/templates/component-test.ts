@@ -1,20 +1,15 @@
-import capitalize from "../utils/capitalize";
-
-const testTemplate = (fileName: string) => {
-
-  const capFileName = capitalize(fileName);
-
+const testTemplate = (componentName: string) => {
   return `import React from 'react';
-import { customRender } from '@/tests/customRender';
 import { render } from '@testing-library/react';
-import ${capFileName} from './${capFileName}';
+import ${componentName} from './${componentName}';
 
-describe('${capFileName}', () => {
+describe('${componentName}', () => {
   it('renders correctly', () => {
-    const { getByText } = customRender(<${capFileName} />);
-    expect(getByText('${capFileName} component')).toBeInTheDocument();
+    const { getByText } = render(<${componentName} />);
+    expect(getByText('${componentName} component')).toBeInTheDocument();
   });
 });
-`};
+`;
+};
 
 export default testTemplate;

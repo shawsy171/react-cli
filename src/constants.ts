@@ -1,1 +1,0 @@
-export const PENTEST_MANAGER_LOCATION = '/Users/pdamshaw/Dev/pentest-manager-project/PentestManager/src/PentestManagerFrontEnd'

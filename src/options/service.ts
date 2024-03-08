@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 
-import { PENTEST_MANAGER_LOCATION } from "../constants";
+import { LOCATION } from "../rtcconfig";
 import pageTemplate from "../templates/page";
 import capitalize from "../utils/capitalize";
 import createFile from "../utils/createFile";
@@ -16,7 +16,7 @@ import serviceTemplate from "../templates/services";
 export default class CreateService {
   moduleName: string;
   fileName: string;
-  projectRoutesPath = path.join(PENTEST_MANAGER_LOCATION + "/src/routes/routes.tsx");
+  projectRoutesPath = path.join(LOCATION + "/src/routes/routes.tsx");
 
   constructor(moduleName: string, fileName: string) {
     if (!moduleName) {
@@ -31,23 +31,21 @@ export default class CreateService {
 
   createServiceFile() {
     const serviceLocation = path.join(
-      PENTEST_MANAGER_LOCATION + "/src/modules",
+      LOCATION + "/src/modules",
       this.moduleName,
       "services",
-      `${this.fileName}.service.ts` // -- using .service.ts might make this a nicer experience
+      `${this.fileName}.service.ts`, // -- using .service.ts might make this a nicer experience
       // `${this.fileName}.ts`
     );
     createFile(serviceLocation, serviceTemplate(this.moduleName));
   }
-
 
   /**
    * init
    * - create the service folder
    * - create the service file
    */
-  init () {
+  init() {
     this.createServiceFile();
-
   }
 }
